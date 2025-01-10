@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+
+    <script>
+        if (sessionStorage.getItem('loggedIn') !== 'true' ) {
+            window.location.href = "index.html";
+        }
+
+        function getValues() {
+            var urlParams = new URLSearchParams(window.location.search);
+            let email = urlParams.get('email');
+            let password = urlParams.get('password');
+            
+            document.getElementById('userEmail').innerText = email;
+        }
+
+        window.onload = getValues;
+
+    </script>
+
+</head>
+<body>
+    <div>
+        <h1>Welcome to your dashboard <span id="userEmail"></span></h1>
+    </div>
+</body>
+</html>

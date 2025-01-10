@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation</title>
+    <style>
+        body {
+            background-color: rgb(239 246 255);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: sans-serif;
+            overflow: hidden;
+        }
+
+        img.logo {
+            width: 120px;
+        }
+
+        .form-header {
+            text-align: center;
+            line-height: 10px;
+        }
+        
+        .input-field {
+            position: relative;
+        }
+
+        img.input-icon {
+            width: 25px;
+            position: absolute;
+            top: 50%;
+            left: 10px;
+            transform: translatey(-50%);
+            border-right: 1px solid gray;
+            padding-right: 10px;
+        }
+
+        input {
+            height: 50px;
+            border: none;
+            border: 1px solid rgb(229 231 235);
+            padding-left: 60px;
+            font-size: 16px;
+        }
+
+        input:focus {
+            outline: 1px solid blue;
+        }
+        form {
+            padding: 30px;
+            margin-top: -20px;
+            box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+            background-color: white;
+        }
+
+        .outer-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h1 {
+            font-size: 25px;
+            font-weight: 700;
+            color: rgb(62, 62, 62);
+        }
+
+        span {
+            font-weight: lighter;
+            font-size: 15px;
+            color: rgb(54, 54, 54);
+        }
+
+        .form-body {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        button {
+            width: 100%;
+            height: 40px;
+            border: none;
+            background-color: rgb(0, 94, 255);
+            color: white;
+            font-size: 17px;
+            margin-top: 20px;
+        }
+
+        img#togglePassword {
+            width: 20px;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 10px;
+        }
+
+        .invalid-text {
+            height: 50px;
+            margin-bottom: -20px;
+        }
+
+        p {
+            text-align: center;
+            color: rgb(255, 0, 68);
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="outer-container">
+        <img src="logo/logo.png" alt="LOGO" class="logo">
+        <form id="form">
+            <div class="form-header">
+                <h1>Welcome Back</h1>
+                <span>Enter your credentials</span>
+            </div>
+            <div class="invalid-text">
+                <p id="invalidText">Invalid Credentials.</p>
+            </div>
+            <div class="form-body">
+                <div class="input-field">
+                    <input type="email" placeholder="Email" id="email" autocomplete="off">
+                    <img src="icons/envelope-line-icon.png" alt="EMAIL" class="input-icon">
+                </div>
+                <div class="input-field">
+                    <input type="password" placeholder="Password" id="password">
+                    <img src="icons/lock-line-icon.png" alt="PASSWORD" class="input-icon">
+                    <img src="icons/hide-private-hidden-icon.png" alt="Show Password" id="togglePassword">
+                </div>
+            </div>
+            <div class="btn-container">
+                <button id="login" type="button">Login</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        const submit = document.getElementById('login');
+        const form = document.getElementById('form')
+        const passwordToggle = document.getElementById('password');
+
+        function login() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const invalid = document.getElementById('invalidText')
+
+            if(email === 'yuri@gmail.com' && password === 'admin'){
+                sessionStorage.setItem('loggedIn', 'true')
+                window.location.href = "dashboard.html?email=" + encodeURIComponent(email) + "&password=" + encodeURIComponent(password);
+
+                            
+            } else {
+                invalid.style.display = "block";
+                form.reset();
+            }
+        }
+
+        submit.addEventListener('click', login);
+
+        const togglePassword = document.getElementById('togglePassword')
+
+        function showPassword() {
+            if(passwordToggle.type === ("password")){
+                passwordToggle.type = "text";
+                togglePassword.src = "icons/eye-look-icon.png";
+
+            } else {
+                passwordToggle.type = "password";
+                togglePassword.src = "icons/hide-private-hidden-icon.png";
+            }
+            
+        } 
+
+        togglePassword.addEventListener('click', showPassword);
+    </script>
+</body>
+</html>
