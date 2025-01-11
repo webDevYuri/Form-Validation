@@ -139,43 +139,53 @@
         </form>
     </div>
     <script>
-        const submit = document.getElementById('login');
-        const form = document.getElementById('form')
-        const passwordToggle = document.getElementById('password');
+// Get references to the necessary HTML elements
+        const submit = document.getElementById('login'); // The login button
+        const form = document.getElementById('form'); // The login form
+        const passwordToggle = document.getElementById('password'); // The password input field
 
+        // Define the login function that handles user authentication
         function login() {
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const invalid = document.getElementById('invalidText')
+            const email = document.getElementById('email').value; // Get the value of the email input field
+            const password = document.getElementById('password').value; // Get the value of the password input field
+            const invalid = document.getElementById('invalidText'); // Reference to the invalid text message element
 
-            if(email === 'yuri@gmail.com' && password === 'admin'){
-                sessionStorage.setItem('loggedIn', 'true')
+            // Check if the entered email and password match the hardcoded credentials
+            if (email === 'yuri@gmail.com' && password === 'admin') {
+                // Save login state to sessionStorage (persists only during the session)
+                sessionStorage.setItem('loggedIn', 'true');
+                
+                // Redirect to the dashboard.html page and pass email and password as URL parameters
                 window.location.href = "dashboard.html?email=" + encodeURIComponent(email) + "&password=" + encodeURIComponent(password);
-
-                            
             } else {
+                // Show the invalid text message if credentials are incorrect
                 invalid.style.display = "block";
+                
+                // Reset the form fields
                 form.reset();
             }
         }
 
-        submit.addEventListener('click', login);
+        // Attach a click event listener to the submit button
+        submit.addEventListener('click', login); // Calls the login function when the login button is clicked
 
-        const togglePassword = document.getElementById('togglePassword')
+        // Get reference to the toggle password button/icon
+        const togglePassword = document.getElementById('togglePassword');
 
+        // Define the function to show or hide the password
         function showPassword() {
-            if(passwordToggle.type === ("password")){
-                passwordToggle.type = "text";
-                togglePassword.src = "icons/eye-look-icon.png";
-
+            // Check if the current password field type is 'password'
+            if (passwordToggle.type === "password") {
+                passwordToggle.type = "text"; // Change the field type to 'text' to show the password
+                togglePassword.src = "icons/eye-look-icon.png"; // Change the icon to an "eye-open" image
             } else {
-                passwordToggle.type = "password";
-                togglePassword.src = "icons/hide-private-hidden-icon.png";
+                passwordToggle.type = "password"; // Change the field type back to 'password' to hide the password
+                togglePassword.src = "icons/hide-private-hidden-icon.png"; // Change the icon to an "eye-closed" image
             }
-            
-        } 
+        }
 
-        togglePassword.addEventListener('click', showPassword);
+        // Attach a click event listener to the toggle password button/icon
+        togglePassword.addEventListener('click', showPassword); // Calls the showPassword function when the togglePassword button is clicked
     </script>
 </body>
 </html>
